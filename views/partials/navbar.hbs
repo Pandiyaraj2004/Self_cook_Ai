@@ -1,0 +1,16 @@
+    <nav>
+      <div class="logo">Tutor Joes</div>
+      <div class="menu">
+        {{#if user}}
+        <a href="/html/index.html" style="--i:0;" ><b>Home</b></a>
+        <a href="/html/fn.html" style="--i:1;"><b>Find Recipie By Name</b></a>
+        <a href="/html/nutrition.html" style="--i:2;"><b>Find Nutrition</b></a>
+        <a href="/html/about.html" style="--i:3;"><b>About</b></a>
+        <a href="/profile"><b>Profile</b></a>
+        <a href="/auth/logout"><b>Logout</b></a>
+         {{else}}
+        <a href="/register">Register</a>
+        <a href="/">Login</a>
+        {{/if}}
+      </div>
+    </nav>

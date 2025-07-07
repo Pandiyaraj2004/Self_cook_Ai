@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    outline: none;
+    box-sizing: border-box;
+    font-family: 'Noto Sans', sans-serif;
+  }
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("https://www.foodiesfeed.com/wp-content/uploads/2023/09/fresh-vegetables.jpg");
+    min-height:100vh;
+    /*https://c4.wallpaperflare.com/wallpaper/854/972/859/vegetables-rice-still-life-dark-wallpaper-preview.jpg*/
+
+}.header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height:  100px;
+    padding: 1.3rem 10%;
+    /* background:rgba(0,0,0,.1);*/
+    /* backdrop-filter: blur(50px);*/
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+  
+  }
+  
+  .header::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:rgba(0,0,0,.1);
+    backdrop-filter: blur(50px);
+    z-index: -1;
+  }
+  
+  .header::after{
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:linear-gradient(90dge, transparent, rgba(255,255,255,.4), transparent);
+    transition: .5s;
+  
+  }
+  
+  .header:hover:after{
+    left:100%;
+  
+  }
+  
+  .logo img{
+    height: 90px;
+    width:90px;
+    border-radius: 50%;
+  
+  }
+  
+  .navbar a {
+    font-size: 1 rem;
+    color:white;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 2.5rem;
+    
+  }
+  
+  #check{
+    display: none;
+  }
+  .icons{
+    position: absolute;
+    right: 5%;
+    font-size: 2.8rem;
+    color:white;
+    cursor:pointer;
+    display:none;
+    
+  }
+  
+  @media (max-width:992px) {
+    .header{
+      padding: 1.3rem 5%;
+    }
+    
+  }
+  
+  @media (max-width:600px){
+    .icons{
+      display: inline-flex;
+    }
+    #check:checked~.icons #menu-icon{
+      display: none;
+    }
+    .icons #colse-icon{
+      display:none;
+    }
+  
+    #check:checked~.icons #close-icon{
+      display: block;
+    }
+  
+    .navbar{
+      position: absolute;
+      top: 100%;
+      left:0;
+      width: 100%;
+      height: 0;
+      background:rgba(0,0,0,.1);
+      backdrop-filter: blur(50px);
+      box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+      overflow: hidden;
+      transition: .3s ease;
+    }
+  
+    #check:checked~.navbar{
+      height: 17.7rem;
+    }
+    .navbar a{
+      display: block;
+      font-size: 1.1rem;
+      margin: 1.5rem 0;
+      text-align: center;
+      transform: translateY(-50px);
+      opacity: 0;
+      transition: .3s ease;
+    }
+  
+    #check:checked~.navbar a{
+      transform: translateY(0);
+      opacity: 1;
+      transition-delay: calc(.15s * var(--i));
+  }
+  }
+.container,
+.container-fluid
+{
+  position: absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  display: block;
+  background: #fff;
+  width: 410px;
+  padding: 30px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+
+
+.container-fluid{
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center
+}
+
+
+
+.container-fluid h2,.container-fluid h3{
+  font-weight: 400;
+}
+
+.container-fluid img{
+  width: 200px;
+}
+
