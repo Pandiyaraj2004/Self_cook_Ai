@@ -1,170 +1,71 @@
-Here’s a **professional GitHub README** for your **Recipe AI** project that finds recipes and nutrition details using **image recognition**, **name search**, **Edamam API**, and **Google Lens web scraping**, built with **Node.js**:
+# SelfCook AI
 
----
+> A recipe-discovery prototype connecting food images, recipe search, nutrition pages, and user accounts.
 
-```markdown
-# 🍳 Recipe AI - Image & Name Based Recipe Finder
+**Node.js · Express · MySQL · Handlebars · Puppeteer · JavaScript**
 
-An AI-powered application that suggests recipes and provides nutrition facts based on either a food image or the food name. Combines the power of Edamam API, Google Lens-inspired web scraping, and Node.js for fast, intelligent recipe discovery.
+## The idea
 
----
+Start with a food image, identify possible food names, and use those terms to retrieve recipes and ingredient information. The project combines a browser interface, an Express server, account handling, and third-party integrations.
 
-## 🚀 Features
+## Implemented workflow
 
-✅ Find recipes by uploading an image of food  
-✅ Find recipes by entering the food name  
-✅ Provides detailed nutrition information (Calories, Carbs, Protein, etc.)  
-✅ Uses Edamam API for accurate recipe & nutrition data  
-✅ Implements Google Lens-style web scraping for advanced ingredient detection  
-✅ Built using Node.js for scalable performance  
-
----
-
-## 🔧 Tech Stack
-
-- **Node.js** (Backend)
-- **Express.js** (API handling)
-- **Edamam Recipe & Nutrition API**
-- **Web Scraping with Puppeteer (Google Lens-like functionality)
-- **Multer** (Image upload handling)
-
-
----
-
-## 📂 Project Structure
-
+```text
+Image upload → external image host → public image URL
+             → Express /predict → Google Lens page via Puppeteer
+             → candidate food terms → Edamam recipe search → recipe cards
 ```
 
-recipe-ai/
-├── server.js              # Main Node.js server
-├── routes/                # API routes
-│   ├── recipeRoutes.js
-│   └── uploadRoutes.js
-├── controllers/           # Logic for recipe and image processing
-├── utils/                 # Helper functions (e.g., Edamam API call, web scraping logic)
-├── public/                # Frontend files (Optional)
-├── uploads/               # Temporary image storage
-├── package.json
-└── README.md
+- Registration and login use MySQL, bcrypt, JWTs, and cookies.
+- Handlebars templates provide account pages.
+- Static pages cover recipe discovery and nutrition.
+- Puppeteer extracts text from the Google Lens result page.
 
-````
-
----
-
-## ⚙️ Installation
-
-**Clone the repository**
+## Local setup
 
 ```bash
-git clone https://github.com/Pandiyaraj2004/recipe-ai.git
-cd recipe-ai
-````
-
-**Install dependencies**
-
-```bash
+git clone https://github.com/Pandiyaraj2004/Self_cook_Ai.git
+cd Self_cook_Ai
 npm install
 ```
 
-**Setup Environment Variables**
+Create a local `.env` with the configuration used by the server:
 
-Create a `.env` file with your credentials:
-
-```
-EDAMAM_APP_ID=your_edamam_app_id
-EDAMAM_APP_KEY=your_edamam_app_key
-PORT=5000
-```
-
----
-
-## 📸 How It Works
-
-1. **Image-Based Recipe Search**
-
-   * Upload a food image
-   * AI detects the food using Google Lens-like scraping or image processing
-   * Fetches recipe suggestions from Edamam API
-   * Displays nutrition facts
-
-2. **Name-Based Recipe Search**
-
-   * Enter food name manually
-   * Retrieves recipes & nutrition information
-
----
-
-## 🧪 Example Usage
-
-**Find Recipe by Image**
-
-```http
-POST /api/upload
-Content-Type: multipart/form-data
+```dotenv
+DATABASE_HOST=localhost
+DATABASE_USER=your_local_database_user
+DATABASE_PASS=your_local_database_password
+DATABASE=selfcook
+JWT_SECRET=replace_with_a_random_local_secret
+JWT_EXPIRES_IN=1d
+JWT_COOKIE_EXPIRES=1
 ```
 
-**Find Recipe by Name**
+Provision the MySQL database and its `login` table before testing account flows. The controller writes `name`, `email`, and `pass`, but reads uppercase `ID` and `PASS`; reconcile the schema and field casing before expecting login to work. No schema migration is included.
 
-```http
-GET /api/recipe?food=pasta
+```bash
+npm start
 ```
 
-**Sample Response**
+The server listens at http://localhost:5000.
 
-```json
-{
-  "recipe": "Classic Pasta with Tomato Sauce",
-  "calories": 520,
-  "protein": "18g",
-  "fat": "20g",
-  "carbs": "65g",
-  "link": "https://www.edamam.com/recipe-url"
-}
-```
+## Code tour
 
----
+| Path | Responsibility |
+| --- | --- |
+| [app.js](app.js) | Express setup, database connection, image-name lookup |
+| [controllers/users.js](controllers/users.js) | Account registration, login, session checks |
+| [routes](routes) | Account and page routing |
+| [public/js/food.js](public/js/food.js) | Image upload and recipe retrieval |
+| [views](views) | Handlebars account templates |
+| [public/html](public/html) | Food and nutrition interfaces |
 
-## 📊 Dependencies
+## Integration status
 
-* `express`
-* `axios`
-* `puppeteer` (Web scraping)
-* `multer` (Image handling)
-* `dotenv`
+This is a prototype with setup work remaining. The browser scripts currently contain provider credentials; rotate them and move credentialed API calls behind the server before deployment. The Google Lens integration depends on external page markup and can break when that page changes. Provider credentials and service availability must be configured independently; adding Edamam values to `.env` alone will not wire them into the current browser code.
 
+The `npm test` script is a placeholder, so it does not represent an automated test suite.
 
 ---
 
-## 🌍 Future Enhancements
-
-* Integrate real-time AI food detection using TensorFlow\.js
-* Support multiple cuisine filters
-* Deploy frontend with React/Next.js
-* Mobile app integration
-
----
-
-## 🤝 Contributions
-
-Contributions are welcome! Open Issues or submit PRs for improvements.
-
----
-
-## 📄 License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
-
-## 🙏 Acknowledgments
-
-* [Edamam Recipe API](https://developer.edamam.com/)
-* Google Lens concept inspiration
-* Open-source contributors
-
-```
-
----
-
-**Need code boilerplate or setup commands prepared too?** Let me know — I can provide ready-to-run Node.js files for this project. 🍳🚀
-```
+Built by **Pandiyaraj A** · [Portfolio](https://pandiyaraj.netlify.app/) · [GitHub](https://github.com/Pandiyaraj2004) · [LinkedIn](https://www.linkedin.com/in/pandiyaraj-a-mca/)
